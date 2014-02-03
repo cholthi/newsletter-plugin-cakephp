@@ -55,7 +55,36 @@ class NewsletterController extends NewsletterAppController {
 		$this->set(compact('title_for_layout','description_for_layout', 'page_active'));
 	}
 
-	public function all_registered() {}
+	/**
+	 * All registered action
+	 * @return void 
+	 * @since  0.0.1
+	 */
+	public function all_registered() {
+		$members = $this->Newsletter->find('all', array('order' => 'id DESC'));
+		
+		$title_for_layout = "All registered";
+		$description_for_layout = "All registered page";
+		$page_active = "newsletter_allRegistered";
 
-	public function delete_member( $id ) {}
+		$this->set(compact('title_for_layout','description_for_layout', 'page_active', 'members'));
+	}
+
+	/**
+	 * Delete member from mailing-list
+	 * @param  int $id ID user
+	 * @return void     
+	 * @since  0.0.1
+	 */
+	public function delete_member( $id ) {
+		$this->autoRender = false;
+		if( $this->Newsletter->exists($id) ) {
+			$this->Newsletter->delete( $id );
+			$this->Session->setFlash("Membre désinscrit de la newsletter.", 'Newsletter.notif');
+		} else {
+			$this->Session->setFlash('Impossible de trouver cet utilisateur pour le supprimer de la newsletter.', 'Newsletter.notif', array('type' => 'danger'));
+		}
+
+		$this->redirect($this->referer());
+	}
 }
