@@ -1,0 +1,28 @@
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+CREATE SCHEMA IF NOT EXISTS `pluginscakephp` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+USE `pluginscakephp` ;
+
+-- -----------------------------------------------------
+-- Table `pluginscakephp`.`newsletters`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `pluginscakephp`.`newsletters` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `email` VARCHAR(255) NOT NULL ,
+  `firstname` VARCHAR(150) NULL ,
+  `lastname` VARCHAR(150) NULL ,
+  `company` VARCHAR(255) NULL ,
+  `created` DATETIME NULL ,
+  `modified` DATETIME NULL ,
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) )
+ENGINE = MyISAM;
+
+USE `pluginscakephp` ;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
