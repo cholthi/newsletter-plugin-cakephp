@@ -1,9 +1,9 @@
 # Newsletter plugin for CakePHP
 
 ### Features
+- Subscribe action
 
 ### TODO
-- Subscribe action
 - Unsubscribe action
 - See all registered
 - Manage registered
