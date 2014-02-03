@@ -28,7 +28,7 @@
 		</div>
 		
 		<p class="pull-right" >
-			<a href="<?php echo $this->Html->url('/new-password'); ?>">Unsubscribe?</a><br />
+			<a href="<?php echo $this->Html->url('/newsletter/unsubscribe'); ?>">Unsubscribe?</a><br />
 		</p> 
 		
 		<?php echo $this->Form->submit('Subscribe!', array('class' => 'btn btn-default')); ?>

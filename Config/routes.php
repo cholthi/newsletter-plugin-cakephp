@@ -10,7 +10,7 @@
  */
 
 /**
- * Login action
+ * Subscribe action
  * @since  0.0.1
  */
 	Router::connect(
@@ -18,3 +18,11 @@
 		array('plugin' => 'Newsletter', 'controller' => 'newsletter', 'action' => 'subscribe')
 	);
 
+/**
+ * unsubscribe action
+ * @since  0.0.1
+ */
+	Router::connect(
+		'/newsletter/unsubscribe', 
+		array('plugin' => 'Newsletter', 'controller' => 'newsletter', 'action' => 'unsubscribe')
+	);

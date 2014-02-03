@@ -9,6 +9,11 @@ App::uses('NewsletterAppController', 'Newsletter.Controller');
 
 class NewsletterController extends NewsletterAppController {
 
+	/**
+	 * Subscribe newsletter action
+	 * @return void 
+	 * @since  0.0.1
+	 */
 	public function subscribe() {
 		if( $this->request->is('post') ) {
 			$data = $this->request->data;
@@ -27,7 +32,28 @@ class NewsletterController extends NewsletterAppController {
 		$this->set(compact('title_for_layout','description_for_layout', 'page_active'));
 	}
 
-	public function unsubscribe() {}
+	/**
+	 * Unsubscribe action
+	 * @return void 
+	 * @since  0.0.1
+	 */
+	public function unsubscribe() {
+		if( $this->request->is('post') ) {
+			$data = $this->request->data;
+			if( $this->Newsletter->unsubscribe($data) ) {
+				$this->Session->setFlash("Votre désinscription a bien été prise en compte.", 'Newsletter.notif');
+				$this->redirect('/newsletter/unsubscribe');
+			} else {
+				$this->Session->setFlash('Impossible de trouver cette adresse email dans notre base.', 'Newsletter.notif', array('type' => 'danger'));
+			}
+		}
+
+		$title_for_layout = "Unsubscribe newsletter";
+		$description_for_layout = "Unsubscribe newsletter page";
+		$page_active = "newsletter_unsubscribe";
+
+		$this->set(compact('title_for_layout','description_for_layout', 'page_active'));
+	}
 
 	public function all_registered() {}
 

@@ -21,7 +21,8 @@ class Newsletter extends NewsletterAppModel {
 				),
 			'Unique' => array(
 				'rule' => 'isUnique',
-				'message' => "Cette adresse email est déjà enregistrée."
+				'message' => "Cette adresse email est déjà enregistrée.",
+				'on' => 'create'
 				),
 			),
 		'fistname' => array(
@@ -35,7 +36,8 @@ class Newsletter extends NewsletterAppModel {
 			'message' => "Le prénom doit être exclusivement composé de lettres et de chiffres.",
 			),
 		'company' => array(
-			'rule' => array('allowEmpty', 'alphaNumeric'),
+			'rule' => array('notEmpty'),
+			'allowEmpty' => true,
 			'message' => "Le nom de votre compagnie doit être exclusivement composé de lettres et de chiffres."
 			)
 		);
@@ -55,6 +57,35 @@ class Newsletter extends NewsletterAppModel {
 			if( $this->save() ) {
 				return true;
 			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * A user unsubscribes
+	 * @param  array  $postData Data send by user
+	 * @return boolean
+	 * @since  0.0.1
+	 */
+	public function unsubscribe( $postData = array() ) {
+		if( empty($postData) ) 
+			return false;
+
+		$this->set($postData);
+		$this->validator()->getField('email')->setRule('Unique', array(
+			    'rule' => 'notEmpty',
+			    'required' => true
+			));
+
+		if( $this->validates($postData) ) {
+			
+			$exist = $this->find('first', array('conditions' => array('email' => $postData['Newsletter']['email'])));
+			if( !empty($exist) ) {
+				if( $this->delete($exist['Newsletter']['id']) ) {
+					return true;
+				}
+			} 
 		}
 
 		return false;
