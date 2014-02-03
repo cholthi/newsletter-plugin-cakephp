@@ -2,9 +2,9 @@
 
 ### Features
 - Subscribe action
+- Unsubscribe action
 
 ### TODO
-- Unsubscribe action
 - See all registered
 - Manage registered
 
